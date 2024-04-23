@@ -3,8 +3,8 @@ from db import *
 import requests
 from bs4 import BeautifulSoup
 
-def Olimp_parser():
-    url = "https://rsr-olymp.ru/"
+def Timiryaz_parser():
+    url = "https://www.timacad.ru/"
     response = requests.get(url)
 
     EEvents = []
@@ -14,13 +14,13 @@ def Olimp_parser():
     if response.status_code == 200:
         html = response.text
         soup = BeautifulSoup(html, "html.parser")
-        headers = soup.find("div", id="main_table")
-        headers2 = headers.find_all("a", target="_blank")
-        headers3 = headers.find_all("tbody")
-        for header in headers2:
+        #headers = soup.find_all("a", class_ ="tabs-type-1__item announce-main__itemtabs-type-1__blocks-container announce-main row")
+        headers = soup.find("div", class_ ="tabs-type-1__blocks-container announce-main row")
+        #headers2 = headers.find_all("div", class_ ="col-6")
+        '''for header in headers:
             hrefs.append(header.get("href"))
-            titles.append(header.text)
-
+            titles.append(header.text)'''
+        print(headers)
     else:
         print("Ошибка при получении страницы:", response.status_code)
 
@@ -31,4 +31,4 @@ def Olimp_parser():
     for i in range(1, len(EEvents)):
         add_event(EEvents[i])
     print('done Olimp')
-    
+Timiryaz_parser()

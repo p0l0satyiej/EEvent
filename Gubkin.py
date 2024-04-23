@@ -3,8 +3,8 @@ from db import *
 import requests
 from bs4 import BeautifulSoup
 
-def Olimp_parser():
-    url = "https://rsr-olymp.ru/"
+def Gubkin_parser():
+    url = "https://www.gubkin.ru/events/"
     response = requests.get(url)
 
     EEvents = []
@@ -14,13 +14,12 @@ def Olimp_parser():
     if response.status_code == 200:
         html = response.text
         soup = BeautifulSoup(html, "html.parser")
-        headers = soup.find("div", id="main_table")
-        headers2 = headers.find_all("a", target="_blank")
-        headers3 = headers.find_all("tbody")
+        headers = soup.find("div", class_ ="b-news-items")
+        headers2 = headers.find_all("div", class_ ="b-news-items")
         for header in headers2:
             hrefs.append(header.get("href"))
             titles.append(header.text)
-
+        #print(titles)
     else:
         print("Ошибка при получении страницы:", response.status_code)
 
@@ -31,4 +30,4 @@ def Olimp_parser():
     for i in range(1, len(EEvents)):
         add_event(EEvents[i])
     print('done Olimp')
-    
+Gubkin_parser()

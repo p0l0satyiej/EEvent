@@ -1,5 +1,6 @@
 from Olimp import Olimp_parser
 from VSHE import VSHE_parser
+from stankin import stankin_parser
 from time import time
 
 
